@@ -1,4 +1,5 @@
-// 👑 CROWN BOT V8 - FINAL by SAIF - 01671820986
+const http = require('http');
+http.createServer((req,res)=>res.end('CROWN BOT LIVE')).listen(process.env.PORT||3000);// 👑 CROWN BOT V8 - FINAL by SAIF - 01671820986
 // 52 Commands + 100+ Toxic Romantic Chat - 100% Checked
 const { default: makeWASocket, useMultiFileAuthState, downloadContentFromMessage } = require('@whiskeysockets/baileys')
 const pino = require('pino')
