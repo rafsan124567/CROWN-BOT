@@ -20,6 +20,22 @@ async function startBot(){
   const { state, saveCreds } = await useMultiFileAuthState('session')
   const sock = makeWASocket({ logger: pino({level:'silent'}), auth: state, printQRInTerminal: true })
   sock.ev.on('creds.update', saveCreds)
+sock.ev.on('connection.update', (u)=>{
+console.log("Connection:", u.connection)
+if(u.connection === 'close'){ console.log("Reconnecting..."); startBot() }
+if(u.connection === 'open'){ console.log("✅ CROWN BOT CONNECTED - SAIF 👑") }
+})
+
+if(!state.creds.registered){
+setTimeout(async ()=>{
+try{
+let code = await sock.requestPairingCode("8801671820986")
+console.log("=================================")
+console.log("PAIRING CODE: " + code)
+console.log("=================================")
+}catch(e){ console.log("Pairing Error:", e.message) }
+}, 3000)
+}
 
   sock.ev.on('call', async (calls)=>{
     if(!settings.antiCall) return
